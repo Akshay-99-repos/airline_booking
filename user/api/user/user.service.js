@@ -54,12 +54,10 @@ module.exports = {
     },
 
     getFlightsByParams: (data, callBack) => {
-        console.log(data);
         pool.query(
             `SELECT * FROM flights where from_ = ? AND to_ = ? AND start = ?`,
             [data.from, data.to, data.start],
             (error, results, feilds) => {
-                console.log(results);
                 if(error) {
                     return callBack(error);
                 }
@@ -88,10 +86,8 @@ module.exports = {
 
         bookFlight: (flightId, data, callback) => {
             pool.query(
-                `INSERT INTO booking_details(id, pnr, email, cust_name, seat_count, pass_detail, seat_no, flightNo) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)`,
+                `INSERT INTO booking_details(email, cust_name, seat_count, pass_detail, seat_no, flightNo) VALUES (?, ?, ?, ?, ?, ?)`,
                 [
-                    data.id, 
-                    data.pnr, 
                     data.email,
                     data.cust_name,
                     data.seat_count,

@@ -111,7 +111,6 @@ module.exports = {
         getUserByUserEmail(body.email, (err, results) => {
             const salt = genSaltSync(10);
             results.password = hashSync(results.password, salt);
-            console.log(results, body);
             if(err) {
                 console.log(err);
             }
@@ -122,7 +121,6 @@ module.exports = {
                 });
             }
             const result = compareSync(body.password, results.password);
-            console.log(result);
             if(result) {
                 results.password = undefined;
                 const jsontoken = sign({ result: results}, process.env.ENCRYPT_TOKEN, {expiresIn: "1h",});
